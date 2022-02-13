@@ -5,8 +5,7 @@ from random import randint, shuffle
 pg.init()
 
 class Algorithm:
-    text_template = pg.font.Font(None, 30)
-    title_template  = pg.font.Font(None, 70)
+
 
     def __init__(self, items, bg_colour = (0, 0, 0), block_colour = (0, 255, 0), speed = 20, phrase = "Bubble Sort Visualised", text_colour = (255, 255, 255), spacing = 1):
         self.index = self.p_index = self.count = self.comparisons = self.current_num_iter = self.is_sorted = 0
@@ -14,8 +13,8 @@ class Algorithm:
         self.speed = speed
         self.spacing = spacing
 
-        self.screen = None
-        self.clock = None
+        self.screen = self.clock = None
+
         self.blocks = []
 
         self.bg_colour = bg_colour
@@ -87,6 +86,8 @@ class Algorithm:
     def load_display(self, x=800, y=500, speed=60):
         # loads the screen with variables
         self.x, self.y = x, y
+        self.text_template = pg.font.Font(None, self.x//40)
+        self.title_template  = pg.font.Font(None, self.x//10)
         self.screen = pg.display.set_mode((x, y))
         self.clock = pg.time.Clock()
         self.create_blocks()
@@ -107,12 +108,18 @@ class Algorithm:
                         exit()
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if event.button == 1: main = False
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_r:
+                            pg.quit()
+                            exit()
 
                 # displays updated phrase
                 phrase = self.title_template.render("".join(char[1] for char in self.phrase), False, self.text_colour) # updates phrase
+                click = self.text_template.render("Click to Begin", False, (255, 255, 255))
                 by = self.text_template.render("By Lucas Reinholc-Gomez", False, (255, 255, 255))
                 by = pg.transform.rotate(by, angle)
                 self.screen.blit(phrase, phrase.get_rect(center = (self.x//2, self.y//3)))
+                self.screen.blit(click, click.get_rect(center = (self.x//2, 14*(self.y//24))))
                 self.screen.blit(by, by.get_rect(center = (self.x//2, 3*(self.y//4))))
                 self.sort_phrase()
 
@@ -137,6 +144,9 @@ class Algorithm:
                         if event.key == pg.K_a:
                             speed = speed // 100
                             if speed < 1: speed = 1
+                        if event.key == pg.K_r:
+                            pg.quit()
+                            exit()
                     if event.type == pg.KEYUP:
                         if event.key in (pg.K_d, pg.K_a):
                             speed = spd
@@ -149,8 +159,8 @@ class Algorithm:
                 b = self.text_template.render(f"{self.current_num_iter} iterations", False, (255,255,255))
                 c = self.text_template.render(f"{self.comparisons} comparisons", False, (255,255,255))
                 self.screen.blit(a, a.get_rect(center = (90,  20)))
-                self.screen.blit(b, b.get_rect(center = (300,  20)))
-                self.screen.blit(c, c.get_rect(center = (510,  20)))
+                self.screen.blit(b, b.get_rect(center = (320,  20)))
+                self.screen.blit(c, c.get_rect(center = (600,  20)))
 
                 self.clock.tick(speed)
             pg.display.update()
@@ -166,7 +176,7 @@ class Blocks:
 
 if __name__ == "__main__":
     items = [randint(1, 1000) for _ in range(50)]
-    #items = [i for i in range(5, 1000, 5)]
+    #items = [i for i in range(0, 500, 20)]
     shuffle(items)
     sort = Algorithm(items, block_colour = (0, 255, 0))
-    sort.load_display(y = 1000, speed = 5) # if you increase fps it also increases the speed of the sorting
+    sort.load_display(y = 1090, speed = 5, x = 1920) # if you increase fps it also increases the speed of the sorting
