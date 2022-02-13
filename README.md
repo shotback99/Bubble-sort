@@ -13,6 +13,6 @@ that's a lot!
 There are many more efficient algorithms than the Bubble sort with better worst case scenarios
 
 I used Object Oriented programming for representing the blocks, even though its not the most efficient way,
-because for 1000 items it would have to create 1000 objects but ¯\_(ツ)_/¯
+because for 1000 items it would have to create 1000 objects but ¯\\_(ツ)_/¯
  
 Enjoy!
