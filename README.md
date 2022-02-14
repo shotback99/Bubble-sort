@@ -15,5 +15,8 @@ There are many more efficient algorithms than the Bubble sort with better worst 
 
 I used Object Oriented programming for representing the blocks. Although its not the most efficient way,
 because for 1000 items it would have to create 1000 objects but ¯\\_(ツ)_/¯
+
+Use "D" to speed up the sorting and "A" to slow it down
+To close the program press "R"
  
 Enjoy!
